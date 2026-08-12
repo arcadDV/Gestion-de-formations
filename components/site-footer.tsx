@@ -11,7 +11,7 @@ export function SiteFooter() {
           <div className="space-y-4">
             <Logo variant="light" />
             <p className="max-w-xs text-sm leading-relaxed text-white/60">
-              Centre de conseil et de formation professionnelle en informatique et solutions numériques.
+              Centre de conseil et de formation professionnelle en informatique et solutions numériques au Gabon.
             </p>
             <div className="flex gap-2">
               {[Share2, Send, Users].map((Icon, i) => (
@@ -74,15 +74,15 @@ export function SiteFooter() {
             <ul className="mt-4 space-y-3 text-sm text-white/60">
               <li className="flex items-center gap-2.5">
                 <MapPin className="size-4 shrink-0 text-primary" />
-                Dakar, Sénégal
+                Libreville, Gabon
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="size-4 shrink-0 text-primary" />
-                +221 33 000 00 00
+                +241 01 44 00 00
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="size-4 shrink-0 text-primary" />
-                contact@netzone.com
+                contact@netzone.ga
               </li>
             </ul>
           </div>
@@ -90,7 +90,7 @@ export function SiteFooter() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-white/50 sm:flex-row">
           <p>© {new Date().getFullYear()} Netzone Service. Tous droits réservés.</p>
-          <p>Conseil · Formation · Solutions Digitales</p>
+          <p>Conseil · Formation · Solutions digitales au Gabon</p>
         </div>
       </div>
     </footer>

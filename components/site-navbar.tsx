@@ -34,9 +34,10 @@ export function SiteNavbar() {
 
   const dashboardHref = user?.role === "admin" ? "/admin" : "/dashboard"
 
-  function handleLogout() {
-    logout()
+  async function handleLogout() {
+    await logout()
     router.push("/")
+    router.refresh()
   }
 
   return (

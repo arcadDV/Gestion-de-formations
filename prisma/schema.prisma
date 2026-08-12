@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id          String       @id @default(uuid())
+  firstName   String
+  lastName    String
+  email       String       @unique
+  role        String       @default("student")
+  enrollments Enrollment[]
+  createdAt   DateTime     @default(now())
+
+  @@map("users")
+}
+
+model Course {
+  id              String       @id @default(uuid())
+  title           String
+  description     String
+  longDescription String?
+  category        String
+  level           String
+  duration        String
+  price           Int
+  modules         Int
+  image           String?
+  published       Boolean      @default(false)
+  students        Int          @default(0)
+  rating          Float        @default(0)
+  instructor      String?
+  objectives      String[]
+  skills          String[]
+  demoVideo       String?
+  enrollments     Enrollment[]
+  createdAt       DateTime     @default(now())
+
+  @@map("courses")
+}
+
+model Enrollment {
+  id        String   @id @default(uuid())
+  userId    String
+  courseId   String
+  progress  Int      @default(0)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, courseId])
+  @@map("enrollments")
+}

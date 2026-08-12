@@ -1,81 +1,143 @@
 "use client"
 
-import { createContext, useCallback, useContext, useMemo, useState } from "react"
-import { INITIAL_USERS } from "./mock-data"
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
 import type { Role, User } from "./types"
 
 interface AuthResult {
   ok: boolean
   message?: string
+  role?: Role
+  needsConfirmation?: boolean
 }
 
 interface AuthContextValue {
   user: User | null
-  users: User[]
-  login: (email: string, password: string) => AuthResult
+  loading: boolean
+  login: (email: string, password: string) => Promise<AuthResult>
   register: (data: {
     firstName: string
     lastName: string
     email: string
     password: string
-    role: Role
-  }) => AuthResult
-  logout: () => void
+    role?: Role
+  }) => Promise<AuthResult>
+  logout: () => Promise<void>
   updateProfile: (data: Partial<Pick<User, "firstName" | "lastName" | "email">>) => void
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
 
+function mapUser(raw: Record<string, unknown> | null | undefined): User | null {
+  if (!raw) return null
+  return {
+    id: String(raw.id),
+    firstName: String(raw.firstName ?? ""),
+    lastName: String(raw.lastName ?? ""),
+    email: String(raw.email ?? ""),
+    role: (raw.role === "admin" ? "admin" : "student") as Role,
+  }
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [users, setUsers] = useState<User[]>(INITIAL_USERS)
   const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
 
-  const login = useCallback(
-    (email: string, _password: string): AuthResult => {
-      const found = users.find((u) => u.email.toLowerCase() === email.trim().toLowerCase())
-      if (!found) {
-        return { ok: false, message: "Aucun compte ne correspond à cet email." }
+  const refreshUser = useCallback(async () => {
+    try {
+      const res = await fetch("/api/auth/me")
+      if (!res.ok) {
+        setUser(null)
+        return
       }
-      setUser(found)
-      return { ok: true }
-    },
-    [users],
-  )
+      const data = await res.json()
+      setUser(mapUser(data.user))
+    } catch {
+      setUser(null)
+    }
+  }, [])
 
-  const register = useCallback<AuthContextValue["register"]>(
-    (data) => {
-      const email = data.email.trim().toLowerCase()
-      if (users.some((u) => u.email.toLowerCase() === email)) {
-        return { ok: false, message: "Un compte existe déjà avec cet email." }
-      }
-      const newUser: User = {
-        id: `u-${Date.now()}`,
-        firstName: data.firstName.trim(),
-        lastName: data.lastName.trim(),
-        email,
-        role: data.role,
-      }
-      setUsers((prev) => [...prev, newUser])
-      setUser(newUser)
-      return { ok: true }
-    },
-    [users],
-  )
+  useEffect(() => {
+    refreshUser().finally(() => setLoading(false))
+  }, [refreshUser])
 
-  const logout = useCallback(() => setUser(null), [])
+  const login = useCallback(async (email: string, password: string): Promise<AuthResult> => {
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim().toLowerCase(), password }),
+      })
+      const data = await res.json()
+
+      if (!res.ok) {
+        return { ok: false, message: data.error ?? "Identifiants incorrects." }
+      }
+
+      const mapped = mapUser(data.profile)
+      setUser(mapped)
+      return { ok: true, role: mapped?.role ?? "student" }
+    } catch {
+      return { ok: false, message: "Impossible de se connecter. Réessayez." }
+    }
+  }, [])
+
+  const register = useCallback<AuthContextValue["register"]>(async (data) => {
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: data.firstName.trim(),
+          lastName: data.lastName.trim(),
+          email: data.email.trim().toLowerCase(),
+          password: data.password,
+          role: data.role ?? "student",
+        }),
+      })
+      const payload = await res.json()
+
+      if (!res.ok) {
+        return { ok: false, message: payload.error ?? "Inscription impossible." }
+      }
+
+      if (payload.needsConfirmation) {
+        return {
+          ok: true,
+          needsConfirmation: true,
+          message: "Compte créé. Vérifiez votre email pour confirmer l'inscription.",
+        }
+      }
+
+      const mapped = mapUser(payload.profile)
+      setUser(mapped)
+      return { ok: true, role: mapped?.role ?? "student" }
+    } catch {
+      return { ok: false, message: "Impossible de créer le compte. Réessayez." }
+    }
+  }, [])
+
+  const logout = useCallback(async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" })
+    } finally {
+      setUser(null)
+    }
+  }, [])
 
   const updateProfile = useCallback<AuthContextValue["updateProfile"]>((data) => {
-    setUser((prev) => {
-      if (!prev) return prev
-      const next = { ...prev, ...data }
-      setUsers((list) => list.map((u) => (u.id === prev.id ? { ...u, ...data } : u)))
-      return next
-    })
+    setUser((prev) => (prev ? { ...prev, ...data } : prev))
   }, [])
 
   const value = useMemo(
-    () => ({ user, users, login, register, logout, updateProfile }),
-    [user, users, login, register, logout, updateProfile],
+    () => ({ user, loading, login, register, logout, updateProfile }),
+    [user, loading, login, register, logout, updateProfile],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

@@ -31,8 +31,8 @@ export function AuthShell({
             Développez vos compétences numériques avec Netzone &amp; Services
           </h2>
           <p className="max-w-md leading-relaxed text-primary-foreground/80">
-            Rejoignez des centaines d&apos;apprenants formés par nos experts. Conseil, formation et solutions digitales
-            en un seul endroit.
+            Rejoignez des centaines d&apos;apprenants gabonais formés par nos experts. Conseil, formation et solutions
+            digitales pour le marché local.
           </p>
           <ul className="space-y-4 pt-2">
             {[

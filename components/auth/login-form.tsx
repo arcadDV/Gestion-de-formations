@@ -18,28 +18,23 @@ export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
-    setTimeout(() => {
-      const result = login(email, password)
-      setLoading(false)
+
+    try {
+      const result = await login(email, password)
       if (result.ok) {
         toast.success("Connexion réussie", { description: "Bienvenue sur votre espace." })
         router.push(result.role === "admin" ? "/admin" : "/dashboard")
+        router.refresh()
       } else {
-        toast.error("Échec de la connexion", { description: result.error })
+        toast.error("Échec de la connexion", {
+          description: result.message ?? "Identifiants incorrects.",
+        })
       }
-    }, 600)
-  }
-
-  function fillDemo(role: "student" | "admin") {
-    if (role === "admin") {
-      setEmail("admin@netzone.cm")
-      setPassword("admin123")
-    } else {
-      setEmail("aïcha@example.com")
-      setPassword("demo123")
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -61,9 +56,7 @@ export function LoginForm() {
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <Label htmlFor="password">Mot de passe</Label>
-          <Link href="#" className="text-xs font-medium text-primary hover:underline">
-            Mot de passe oublié ?
-          </Link>
+          <span className="text-xs text-muted-foreground">Min. 6 caractères</span>
         </div>
         <div className="relative">
           <Input
@@ -74,6 +67,7 @@ export function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            minLength={6}
             className="pr-10"
           />
           <button
@@ -92,21 +86,9 @@ export function LoginForm() {
         Se connecter
       </Button>
 
-      <div className="rounded-lg border border-dashed border-border bg-muted/40 p-3">
-        <p className="mb-2 text-xs font-medium text-muted-foreground">Comptes de démonstration</p>
-        <div className="flex gap-2">
-          <Button type="button" variant="outline" size="sm" className="flex-1 bg-transparent" onClick={() => fillDemo("student")}>
-            Apprenant
-          </Button>
-          <Button type="button" variant="outline" size="sm" className="flex-1 bg-transparent" onClick={() => fillDemo("admin")}>
-            Administrateur
-          </Button>
-        </div>
-      </div>
-
       <p className="text-center text-sm text-muted-foreground">
         Pas encore de compte ?{" "}
-        <Link href="/register" className="font-medium text-primary hover:underline">
+        <Link href="/inscription" className="font-medium text-primary hover:underline">
           Créer un compte
         </Link>
       </p>

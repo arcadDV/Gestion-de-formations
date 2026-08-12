@@ -11,7 +11,7 @@ export function Testimonials() {
             Ils nous font confiance
           </h2>
           <p className="mt-3 text-muted-foreground text-pretty">
-            Découvrez les témoignages de nos anciens apprenants.
+            Découvrez les témoignages de nos apprenants au Gabon.
           </p>
         </div>
 

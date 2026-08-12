@@ -50,8 +50,8 @@ export function WhyUs() {
             Pourquoi choisir Netzone Service ?
           </h2>
           <p className="mt-4 text-muted-foreground text-pretty">
-            Nous accompagnons particuliers et entreprises dans leur montée en compétences numériques avec une approche
-            pratique, orientée résultats et adaptée au marché de l&apos;emploi.
+            Nous accompagnons particuliers et entreprises gabonaises dans leur montée en compétences numériques avec une
+            approche pratique, orientée résultats et adaptée au marché de l&apos;emploi au Gabon.
           </p>
         </div>
 

@@ -31,14 +31,14 @@ export const INITIAL_USERS: User[] = [
     id: "u-admin",
     firstName: "Admin",
     lastName: "Netzone",
-    email: "admin@netzone.com",
+    email: "admin@netzone.ga",
     role: "admin",
   },
   {
     id: "u-student",
-    firstName: "Awa",
-    lastName: "Diallo",
-    email: "etudiant@netzone.com",
+    firstName: "Grace",
+    lastName: "Obiang",
+    email: "etudiant@netzone.ga",
     role: "student",
   },
 ]
@@ -60,7 +60,7 @@ export const INITIAL_COURSES: Course[] = [
     published: true,
     students: 342,
     rating: 4.8,
-    instructor: "Ing. Mamadou Sow",
+    instructor: "Ing. Jean-Marc Ndong",
     objectives: [
       "Comprendre l'architecture d'une application web moderne",
       "Créer des interfaces réactives avec React et Next.js",
@@ -86,7 +86,7 @@ export const INITIAL_COURSES: Course[] = [
     published: true,
     students: 198,
     rating: 4.6,
-    instructor: "Ing. Fatou Bâ",
+    instructor: "Ing. Sylvia Engone",
     objectives: [
       "Concevoir des interfaces mobiles ergonomiques",
       "Développer pour Android et iOS avec une seule base de code",
@@ -111,7 +111,7 @@ export const INITIAL_COURSES: Course[] = [
     published: true,
     students: 421,
     rating: 4.7,
-    instructor: "Mme Aïcha Touré",
+    instructor: "Mme Marie-Claire Biyoghe",
     objectives: [
       "Construire une stratégie de contenu",
       "Optimiser le référencement naturel (SEO)",
@@ -136,7 +136,7 @@ export const INITIAL_COURSES: Course[] = [
     published: true,
     students: 156,
     rating: 4.9,
-    instructor: "Ing. Ousmane Kane",
+    instructor: "Ing. Brice Owono",
     objectives: [
       "Identifier les menaces et vulnérabilités",
       "Sécuriser un réseau d'entreprise",
@@ -161,7 +161,7 @@ export const INITIAL_COURSES: Course[] = [
     published: true,
     students: 389,
     rating: 4.8,
-    instructor: "Dr. Ibrahima Ndiaye",
+    instructor: "Dr. Yves Nguema",
     objectives: [
       "Comprendre les bases de l'IA générative",
       "Rédiger des prompts efficaces",
@@ -186,7 +186,7 @@ export const INITIAL_COURSES: Course[] = [
     published: true,
     students: 174,
     rating: 4.5,
-    instructor: "M. Cheikh Fall",
+    instructor: "M. Patrick Moussavou",
     objectives: [
       "Maîtriser un logiciel de montage professionnel",
       "Réaliser un montage rythmé et fluide",
@@ -211,7 +211,7 @@ export const INITIAL_COURSES: Course[] = [
     published: true,
     students: 132,
     rating: 4.7,
-    instructor: "Ing. Modou Gueye",
+    instructor: "Ing. Alain Essono",
     objectives: [
       "Maîtriser la ligne de commande Linux",
       "Administrer les utilisateurs et permissions",
@@ -236,7 +236,7 @@ export const INITIAL_COURSES: Course[] = [
     published: true,
     students: 143,
     rating: 4.6,
-    instructor: "Ing. Sophie Mendy",
+    instructor: "Ing. Nadège Assoumou",
     objectives: [
       "Comprendre les modèles de service cloud",
       "Déployer des ressources cloud",
@@ -261,7 +261,7 @@ export const INITIAL_COURSES: Course[] = [
     published: true,
     students: 167,
     rating: 4.5,
-    instructor: "Ing. Lamine Diop",
+    instructor: "Ing. Christian Oyono",
     objectives: [
       "Comprendre le modèle OSI et TCP/IP",
       "Configurer routeurs et commutateurs",
@@ -286,7 +286,7 @@ export const INITIAL_COURSES: Course[] = [
     published: false,
     students: 512,
     rating: 4.4,
-    instructor: "Mme Ndèye Sarr",
+    instructor: "Mme Grace Obiang",
     objectives: [
       "Maîtriser le traitement de texte",
       "Créer des tableurs avancés",
@@ -305,25 +305,25 @@ export const INITIAL_ENROLLMENTS: Enrollment[] = [
 
 export const TESTIMONIALS = [
   {
-    name: "Serigne Mbaye",
-    role: "Développeur Full-Stack",
+    name: "Jean-Marc Ndong",
+    role: "Développeur Full-Stack · Libreville",
     quote:
-      "La formation en développement web de Netzone Service m'a permis de décrocher mon premier emploi. Un contenu clair et des formateurs à l'écoute.",
+      "La formation en développement web de Netzone Service m'a permis de décrocher mon premier emploi à Libreville. Un contenu clair et des formateurs à l'écoute.",
   },
   {
-    name: "Mariama Ndir",
-    role: "Responsable Marketing",
+    name: "Sylvia Engone",
+    role: "Responsable Marketing · Port-Gentil",
     quote:
-      "Grâce à la formation en marketing digital, j'ai doublé la visibilité en ligne de mon entreprise. Une expérience très professionnelle.",
+      "Grâce à la formation en marketing digital, j'ai renforcé la visibilité en ligne de mon entreprise au Gabon. Une expérience très professionnelle.",
   },
   {
-    name: "Abdou Faye",
-    role: "Administrateur Systèmes",
+    name: "Patrick Moussavou",
+    role: "Administrateur Systèmes · Libreville",
     quote:
-      "Des formations pointues et adaptées au marché. L'accompagnement de Netzone Service fait vraiment la différence.",
+      "Des formations pointues et adaptées au marché gabonais. L'accompagnement de Netzone Service fait vraiment la différence.",
   },
 ]
 
 export function formatPrice(price: number) {
-  return new Intl.NumberFormat("fr-FR").format(price) + " FCFA"
+  return new Intl.NumberFormat("fr-GA").format(price) + " FCFA"
 }

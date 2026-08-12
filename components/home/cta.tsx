@@ -14,8 +14,8 @@ export function CtaSection() {
             Prêt à transformer votre carrière ?
           </h2>
           <p className="text-lg text-primary-foreground/80 text-pretty">
-            Rejoignez Netzone Service dès aujourd&apos;hui et accédez à des formations de qualité pour maîtriser les
-            compétences du numérique.
+            Rejoignez Netzone Service dès aujourd&apos;hui et accédez à des formations de qualité adaptées au marché
+            gabonais pour maîtriser les compétences du numérique.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button size="lg" variant="secondary" asChild className="gap-2">

@@ -21,9 +21,9 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: "Netzone Service — Formations professionnelles en informatique",
+  title: "Netzone Service — Formations professionnelles en informatique au Gabon",
   description:
-    "Développez vos compétences numériques avec Netzone Service. Formations en développement web, mobile, cybersécurité, IA, marketing digital et plus encore.",
+    "Développez vos compétences numériques avec Netzone Service au Gabon. Formations en développement web, mobile, cybersécurité, IA, marketing digital et plus encore.",
   generator: "v0.app",
 }
 

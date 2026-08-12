@@ -33,8 +33,8 @@ export function Hero() {
           </h1>
 
           <p className="max-w-lg text-lg leading-relaxed text-muted-foreground text-pretty">
-            Des formations professionnelles en développement, cybersécurité, intelligence artificielle et bien plus.
-            Apprenez auprès d&apos;experts et boostez votre carrière.
+            Des formations professionnelles en développement, cybersécurité, intelligence artificielle et bien plus,
+            conçues pour le marché gabonais. Apprenez auprès d&apos;experts locaux et boostez votre carrière.
           </p>
 
           <form onSubmit={handleSearch} className="flex max-w-md gap-2">
