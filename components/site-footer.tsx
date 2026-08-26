@@ -78,7 +78,7 @@ export function SiteFooter() {
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="size-4 shrink-0 text-primary" />
-                +241 01 44 00 00
+                +241 77 38 19 14
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="size-4 shrink-0 text-primary" />
